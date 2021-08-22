@@ -14,7 +14,19 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: theme => ({
+                'gallery': "url('/img/wallpaper1.jpg')",
+            })
         },
+        color: {
+            gray: {
+                gal: '#b1b1b9',
+            },
+
+            black: {
+
+            }
+        }
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
