@@ -16,17 +16,21 @@ module.exports = {
             },
             backgroundImage: theme => ({
                 'gallery': "url('/img/wallpaper1.jpg')",
-            })
-        },
-        color: {
-            gray: {
-                gal: '#b1b1b9',
+            }),
+            colors: {
+                gray: {
+                    83: '#838592',
+                    b1: '#b1b1b9',
+                },
+
+                customBlack: {
+                    16: '#161a1f',
+                }
             },
-
-            black: {
-
+            zIndex: {
+                '-10': '-10',
             }
-        }
+        },
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],

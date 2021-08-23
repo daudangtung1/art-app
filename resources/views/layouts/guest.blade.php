@@ -19,19 +19,23 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @livewireStyles
     <!-- Scripts -->
-{{--    <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}" defer></script>--}}
-{{--    <script src="{{asset('js/lib/owl.carousel.min.js')}}" defer></script>--}}
-{{--    <script src="{{asset('js/lib/jquery.justifiedGallery.min.js')}}" defer></script>--}}
+    {{--    <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}" defer></script>--}}
+    {{--    <script src="{{asset('js/lib/owl.carousel.min.js')}}" defer></script>--}}
+    {{--    <script src="{{asset('js/lib/jquery.justifiedGallery.min.js')}}" defer></script>--}}
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body>
-<livewire:layouts.header/>
+<header>
+    <livewire:layouts.header/>
+</header>
 <main>
     <div class="font-sans text-gray-900 antialiased">
         {{ $slot }}
     </div>
 </main>
-<livewire:layouts.footer/>
+<footer class="z-10 text-white bg-customBlack-16">
+    <livewire:layouts.footer/>
+</footer>
 <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('js/lib/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/lib/jquery.justifiedGallery.min.js')}}"></script>
