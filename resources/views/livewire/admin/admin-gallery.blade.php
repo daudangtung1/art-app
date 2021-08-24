@@ -1,23 +1,9 @@
 <div>
-    <form wire:submit.prevent="store" class="block">
-        <input type="file" wire:model="image">
-
-        @error('image')
-        <span class="error">{{ $message }}</span>
-        @enderror
-        <input type="text" wire:model="name" placeholder="name">
-        @error('name')
-        <span class="error">{{ $message }}</span>
-        @enderror
-        <input type="text" wire:model="title" placeholder="title">
-        @error('title')
-        <span class="error">{{ $message }}</span>
-        @enderror
-        <input type="text" wire:model="alt" placeholder="alt">
-        <input type="text" wire:model="description" placeholder="description">
-        <button type="submit">Save Photo</button>
-    </form>
+    @if(!$updateMode)
+        @include('livewire.admin.create')
+    @endif
     <div class="block">
+        <div class="grid md:grid-cols-2 gap-1">
         @foreach($imgs as $img)
             <div class="flex justify-between">
                 <img src="{{ asset('storage/'.$img->name) }}" alt="">
@@ -26,6 +12,12 @@
                     <p>{{$img->description}}</p>
                 </div>
             </div>
+        </div>
+        <button wire:click="edit({{$img->id}})" class="btn btn-sm btn-outline-danger py-0">Edit</button>
+        <button wire:click="delete({{$img->id}})" class="btn btn-sm btn-outline-danger py-0">Delete</button>
         @endforeach
     </div>
+    @if($updateMode)
+        @include('livewire.admin.edit')
+    @endif
 </div>
