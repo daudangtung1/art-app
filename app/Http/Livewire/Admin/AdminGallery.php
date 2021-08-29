@@ -6,7 +6,7 @@ use App\Http\Livewire\Gallery;
 use App\Models\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Livewire\WithPagination;
 
 class AdminGallery extends Component
 {
@@ -14,11 +14,41 @@ class AdminGallery extends Component
 
     public $name, $alt, $description, $image, $title;
     public $updateMode = false;
+    public $createMode = false;
+    public $select_id;
 
     public function render()
     {
-        $imgs = Image::all();
-        return view('livewire.admin.admin-gallery', compact('imgs'))->layout('layouts.admin');
+        return view('livewire.admin.admin-gallery', [
+            'imgs' => Image::paginate('5'),
+        ])->layout('layouts.admin');
+    }
+
+    private function resetInput(){
+        $this->image = null;
+        $this->name = null;
+        $this->alt = null;
+        $this->title = null;
+        $this->description = null;
+    }
+
+    public function create()
+    {
+        $this->createMode = true;
+    }
+
+    public function cancelCreate()
+    {
+        $this->createMode = false;
+        $this->resetInput();
+        $this->reset();
+    }
+
+    public function cancelUpdate()
+    {
+        $this->updateMode = false;
+        $this->resetInput();
+        $this->reset();
     }
 
     public function store()
@@ -36,9 +66,9 @@ class AdminGallery extends Component
         $validateImg['description'] = $this->description;
         $validateImg['title'] = $this->title;
         Image::create($validateImg);
+        $this->createMode = false;
+        $this->resetInput();
     }
-
-    public $select_id;
 
     public function edit($id)
     {
@@ -62,14 +92,6 @@ class AdminGallery extends Component
         ]);
         $update = Image::find($this->select_id);
 
-//        $update->update([
-//            'alt' => $this->alt,
-//            'title' => $this->title,
-//            'description' => $this->description,
-//            'name' => $this->name,
-//            'image' => $this->image->store('images', 'public'),
-//        ]);
-
         $file = $this->image->store('images', 'public');
         $validateImg['name'] = $file;
         $validateImg['alt'] = $this->alt;
@@ -77,6 +99,7 @@ class AdminGallery extends Component
         $validateImg['title'] = $this->title;
         Image::where('id', $this->select_id)->update($validateImg);
         $this->updateMode = false;
+        $this->resetInput();
     }
 
     public function delete($id)

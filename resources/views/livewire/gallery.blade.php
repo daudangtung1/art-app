@@ -36,7 +36,8 @@
                 <h4 class="text-xl font-medium">Gallery</h4>
                 <form class="relative">
                     <div>
-                        <input type="text" placeholder="What are you loocking for?" class="focus:outline-none text-black px-3 py-1 w-64 border-green-400 border-2">
+                        <input type="text" placeholder="What are you loocking for?"
+                               class="focus:outline-none text-black px-3 py-1 w-64 border-green-400 border-2">
                     </div>
                     <button type="button" class="absolute hover:cursor-pointer">x</button>
                 </form>
@@ -67,64 +68,14 @@
         </div>
         <div class="px-20">
             <div class="pt-4 pb-3 flex">
-                <h4 class="text-xl font-medium">Featured</h4> <span class="ml-2 text-xl"> 311 </span>
+                <h4 class="text-xl font-medium">Featured</h4> <span class="ml-2 text-xl"> {{count($images)}} </span>
             </div>
             <div id="my-gallery" style="margin: 0 -0.5rem">
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper6.jpg"/>
-                </a>
-
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper2.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper3.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper4.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
-                <a href="">
-                    <img alt="Title 1" src="img/wallpaper1.jpg"/>
-                </a>
+                @foreach($images as $img)
+                    <a href="">
+                        <img alt="{{$img->alt}}" src="{{ asset('storage/'.$img->name) }}"/>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>

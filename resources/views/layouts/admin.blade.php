@@ -22,6 +22,7 @@
 </head>
 <body>
 <header>
+    1
 </header>
 <main>
     <div class="font-sans text-gray-900 antialiased">
@@ -29,6 +30,13 @@
     </div>
 </main>
 <footer class="z-10 text-white bg-customBlack-16">
+    2
+</footer>
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+</script>
 @livewireScripts
 </body>
 </html>
