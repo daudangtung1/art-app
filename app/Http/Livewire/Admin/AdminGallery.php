@@ -15,7 +15,7 @@ class AdminGallery extends Component
 {
     use WithFileUploads;
 
-    public $name, $alt, $description, $image, $title;
+    public $name, $alt, $description, $image, $title, $category_id;
     public $updateMode = false;
     public $createMode = false;
     public $select_id;
@@ -23,7 +23,7 @@ class AdminGallery extends Component
     public function render()
     {
         $imgs = ImageInfo::with('image')->paginate('12');
-        return view('livewire.admin.admin-gallery', compact('imgs'))->layout('layouts.admin');
+        return view('livewire.admin.gallery.index', compact('imgs'))->layout('layouts.admin');
     }
 
     private function resetInput()
@@ -33,6 +33,14 @@ class AdminGallery extends Component
         $this->alt = null;
         $this->title = null;
         $this->description = null;
+        $this->category_id = null;
+    }
+
+    public function cancel()
+    {
+        $this->createMode = false;
+        $this->updateMode = false;
+        $this->resetInput();
     }
 
     public function create()
@@ -40,25 +48,11 @@ class AdminGallery extends Component
         $this->createMode = true;
     }
 
-    public function cancelCreate()
-    {
-        $this->createMode = false;
-        $this->resetInput();
-        $this->reset();
-    }
-
-    public function cancelUpdate()
-    {
-        $this->updateMode = false;
-        $this->resetInput();
-        $this->reset();
-    }
-
     public function store()
     {
         $validateImg = $this->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-
+            'category_id' => 'required',
         ]);
         $validateImgInfo = $this->validate([
             'title' => 'required|max: 128',
@@ -67,6 +61,7 @@ class AdminGallery extends Component
         ]);
         $file = $this->image->store('images', 'public');
         $validateImg['name'] = $file;
+        $validateImg['category_id'] = $this->category_id;
         $d = Image::create($validateImg);
 
         $imgInfo = new ImageInfo;
@@ -94,13 +89,13 @@ class AdminGallery extends Component
 
     public function update()
     {
-        $val=$this->validate([
-            'title'=>'required',
-            'alt'=>'required',
-            'description'=>'required',
+        $val = $this->validate([
+            'title' => 'required',
+            'alt' => 'required',
+            'description' => 'required',
         ]);
 
-        $valImage=$this->validate([
+        $valImage = $this->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
         ]);
 

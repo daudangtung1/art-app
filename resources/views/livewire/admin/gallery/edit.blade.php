@@ -1,9 +1,9 @@
 <div>
     <div class="bg-blue-100 z-20 fixed w-full">
-        <form wire:submit.prevent="update"  class="container mx-auto" wire::model="select_id">
+        <form wire:submit.prevent="update" class="container mx-auto" wire::model="select_id">
             <label class="block">
-            <span class="text-gray-700">Image</span>
-            <input class="form-input mt-1 block w-full" type="file" wire:model="image">
+                <span class="text-gray-700">Image</span>
+                <input class="form-input mt-1 block w-full" type="file" wire:model="image">
             </label>
             @error('image')
             <span class="error">{{ $message }}</span>
@@ -18,6 +18,14 @@
             @enderror
 
             <label class="block">
+                <span class="text-gray-700">Category</span>
+                <input class="form-input mt-1 block w-full" type="text" wire:model="category_id" placeholder="Category">
+            </label>
+            @error('category_id')
+            <span class="error">{{ $message }}</span>
+            @enderror
+
+            <label class="block">
                 <span class="text-gray-700">Alt</span>
                 <input class="form-input mt-1 block w-full" type="text" wire:model="alt" placeholder="alt">
             </label>
@@ -27,7 +35,7 @@
                           placeholder="description"></textarea>
             </label>
             <button type="submit" class="mt-6">Save Photo</button>
+            <button wire:click="cancel" class="btn btn-sm btn-outline-danger py-0">Cancel</button>
         </form>
-        <a href="{{url()->previous()}}" class="btn btn-default">Cancel</a>
     </div>
 </div>

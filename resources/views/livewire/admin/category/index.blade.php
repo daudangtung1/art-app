@@ -1,10 +1,10 @@
 <div>
     <div class="z-0">
-        @if(!$updateMode)
-            @include('livewire.admin.create')
+        @if($createMode==true)
+            @include('livewire.admin.category.create')
         @endif
-        @if($updateMode)
-            @include('livewire.admin.edit')
+        @if($showItem==true)
+            @include('livewire.admin.category.show')
         @endif
         <nav class="container mx-auto">
             <button wire:click="create" class="btn btn-sm btn-outline-danger py-0">Create</button>
@@ -22,13 +22,13 @@
                                     ID
                                 </th>
                                 <th class="p-8 text-xs text-gray-500">
+                                    Category
+                                </th>
+                                <th class="p-8 text-xs text-gray-500">
                                     Image
                                 </th>
                                 <th class="p-8 text-xs text-gray-500">
-                                    Alt
-                                </th>
-                                <th class="p-8 text-xs text-gray-500">
-                                    Title
+                                    Img(s)
                                 </th>
                                 <th class="p-8 text-xs text-gray-500">
                                     Description
@@ -42,33 +42,31 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-
-                            @foreach($imgs as $key => $img)
+                            @foreach($cats as $key=>$cat)
                                 <tr class="whitespace-nowrap">
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        {{$imgs->firstItem() + $key  }}
+                                        {{$cats->firstItem() + $key  }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <img src="{{ asset('storage/'.$img->image->name) }}" alt="" class="w-32 mx-auto">
+                                        <button wire:click="showImage({{$cat->id}})" class="hover:text-gray-700">{{$cat->name}}</button>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        {{$img->alt}}
+                                        <img src="{{ asset('storage/'.$cat->thumb_name) }}" alt=""
+                                             class="w-32 mx-auto">
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
+
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
+                                        <p>{{$cat->description}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <div class="text-sm text-gray-500">
-                                            {{$img->title}}
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <p>{{$img->description}}</p>
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        <button wire:click="edit({{$img->image->id}})"
+                                        <button wire:click=""
                                                 class="px-4 py-1 text-sm text-white bg-blue-400 rounded">Edit
                                         </button>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click="delete({{$img->image->id}})"
+                                        <button wire:click=""
                                                 class="px-4 py-1 text-sm text-white bg-red-400 rounded">Delete
                                         </button>
                                     </td>
@@ -76,7 +74,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $imgs->links() }}
+                        {{ $cats->links() }}
                     </div>
                 </div>
             </div>

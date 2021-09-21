@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\Gallery;
 use App\Http\Livewire\Admin\AdminGallery;
+use App\Http\Livewire\Admin\AdminCategory;
 use App\Http\Livewire\Gender;
 
 /*
@@ -29,3 +30,4 @@ Route::get('/gallery', Gallery::class);
 Route::get('/gender', Gender::class);
 
 Route::get('/admin/gallery', AdminGallery::class);
+Route::get('/admin/category', AdminCategory::class);

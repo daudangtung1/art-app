@@ -12,13 +12,18 @@ class Image extends Model
     protected $fillable=[
         'name',
         'image',
+        'category_id',
     ];
 
     protected $hidden=[
-        'id'
+        'id',
     ];
 
     public function imageInfo(){
         return $this->hasOne('App\Models\ImageInfo');
+    }
+
+    public function category(){
+        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 }
