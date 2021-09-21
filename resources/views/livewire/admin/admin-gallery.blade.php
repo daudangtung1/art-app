@@ -42,14 +42,14 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white">
+
                             @foreach($imgs as $key => $img)
                                 <tr class="whitespace-nowrap">
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         {{$imgs->firstItem() + $key  }}
                                     </td>
-
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <img src="{{ asset('storage/'.$img->name) }}" alt="" class="w-32 mx-auto">
+                                        <img src="{{ asset('storage/'.$img->image->name) }}" alt="" class="w-32 mx-auto">
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         {{$img->alt}}
@@ -63,12 +63,12 @@
                                         <p>{{$img->description}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click="edit({{$img->id}})"
+                                        <button wire:click="edit({{$img->image->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-blue-400 rounded">Edit
                                         </button>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click="delete({{$img->id}})"
+                                        <button wire:click="delete({{$img->image->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-red-400 rounded">Delete
                                         </button>
                                     </td>

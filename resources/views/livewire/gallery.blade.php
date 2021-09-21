@@ -19,15 +19,24 @@
         </div>
     </div>
 </div>
-<nav class="px-20 mt-10">
-    <ul class="bg-black mt-10 p-3.5">
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Home</a></li>
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Gallery</a></li>
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Favourite</a></li>
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Posts</a></li>
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Shop</a></li>
-        <li class="inline-block"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">About</a></li>
+<nav class="mt-10 flex justify-between bg-black mx-20">
+    <ul>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Home</a></li>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Gallery</a></li>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Favourite</a></li>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Posts</a></li>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Shop</a></li>
+        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">About</a></li>
     </ul>
+    <div class="sub-nav text-white flex">
+        <div class="mr-3">
+            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-gift" aria-hidden="true"></i></button>
+        </div>
+        <button class="px-10 py-3 bg-white hover:text-green-400 text-black">Chat</button>
+        <button class="px-10 py-3 bg-green-400 text-black">+ Watch</button>
+    </div>
 </nav>
 <div class="pb-90 text-white bg-black">
     <div class="main-background">

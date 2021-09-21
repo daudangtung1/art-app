@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Admin;
 
 use App\Http\Livewire\Gallery;
 use App\Models\Image;
+use App\Models\ImageInfo;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AdminGallery extends Component
 {
@@ -19,12 +22,12 @@ class AdminGallery extends Component
 
     public function render()
     {
-        return view('livewire.admin.admin-gallery', [
-            'imgs' => Image::paginate('5'),
-        ])->layout('layouts.admin');
+        $imgs = ImageInfo::with('image')->paginate('12');
+        return view('livewire.admin.admin-gallery', compact('imgs'))->layout('layouts.admin');
     }
 
-    private function resetInput(){
+    private function resetInput()
+    {
         $this->image = null;
         $this->name = null;
         $this->alt = null;
@@ -55,17 +58,23 @@ class AdminGallery extends Component
     {
         $validateImg = $this->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'name' => 'required|max:128',
+
+        ]);
+        $validateImgInfo = $this->validate([
             'title' => 'required|max: 128',
             'alt' => '',
             'description' => '',
         ]);
         $file = $this->image->store('images', 'public');
         $validateImg['name'] = $file;
-        $validateImg['alt'] = $this->alt;
-        $validateImg['description'] = $this->description;
-        $validateImg['title'] = $this->title;
-        Image::create($validateImg);
+        $d = Image::create($validateImg);
+
+        $imgInfo = new ImageInfo;
+        $imgInfo->alt = $this->alt;
+        $imgInfo->description = $this->description;
+        $imgInfo->title = $this->title;
+        $imgInfo->image_id = $d->id;
+        $imgInfo->save();
         $this->createMode = false;
         $this->resetInput();
     }
@@ -73,37 +82,53 @@ class AdminGallery extends Component
     public function edit($id)
     {
         $edit = Image::findOrFail($id);
-
         $this->image = $edit->image;
-        $this->alt = $edit->alt;
-        $this->description = $edit->description;
+
+//        $this->title = $edit->title;
+//        $this->alt = $edit->alt;
+//        $this->description = $edit->description;
+
         $this->updateMode = true;
         $this->select_id = $id;
     }
 
     public function update()
     {
-        $validateImg = $this->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'name' => 'required|max:128',
-            'title' => 'required|max: 128',
-            'alt' => '',
-            'description' => '',
+        $val=$this->validate([
+            'title'=>'required',
+            'alt'=>'required',
+            'description'=>'required',
         ]);
+
+        $valImage=$this->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+        ]);
+
         $update = Image::find($this->select_id);
 
         $file = $this->image->store('images', 'public');
-        $validateImg['name'] = $file;
-        $validateImg['alt'] = $this->alt;
-        $validateImg['description'] = $this->description;
-        $validateImg['title'] = $this->title;
-        Image::where('id', $this->select_id)->update($validateImg);
+        $valImage['name'] = $file;
+
+        $update->imageInfo()->update($val);
+        $update->update($valImage);
+
         $this->updateMode = false;
         $this->resetInput();
     }
 
     public function delete($id)
     {
+//        DB::beginTransaction();
+//        try {
+//            ImageInfo::where('image_id', '=', $id)->delete();
+//            Image::find($id)->delete();
+//            session()->flash('message', 'Users Deleted Successfully.');
+//        } catch (Exception $e) {
+//            DB::rollBack();
+//            throw new Exception($e->getMessage());
+//        }
+
+        ImageInfo::where('image_id', '=', $id)->delete();
         Image::find($id)->delete();
         session()->flash('message', 'Users Deleted Successfully.');
     }
