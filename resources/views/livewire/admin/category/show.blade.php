@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-blue-100 z-20 fixed w-full h-full">
+    <div class="bg-blue-100 z-20 fixed w-full">
         <div class="container mx-auto">
             <div class="flex flex-col">
                 <div class="w-full">
@@ -23,18 +23,20 @@
                                 <th class="p-8 text-xs text-gray-500">
                                     Description
                                 </th>
-                                <th class="px-6 py-2 text-xs text-gray-500">
-                                    Edit
-                                </th>
-                                <th class="px-6 py-2 text-xs text-gray-500">
-                                    Delete
-                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white">
 
-                            @foreach($data as $imgs)
-                                <p>{{$imgs->name}}</p>
+                            @foreach($data as $key => $item)
+                                <tr class="whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
+                                        {{$data->firstItem() + $key  }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
+                                        <img src="{{ asset('storage/'.$item->name) }}" alt=""
+                                             class="w-32 mx-auto">
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>

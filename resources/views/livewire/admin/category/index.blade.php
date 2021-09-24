@@ -6,6 +6,9 @@
         @if($showItem==true)
             @include('livewire.admin.category.show')
         @endif
+        @if($editMode==true)
+            @include('livewire.admin.category.edit')
+        @endif
         <nav class="container mx-auto">
             <button wire:click="create" class="btn btn-sm btn-outline-danger py-0">Create</button>
         </nav>
@@ -42,31 +45,34 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white">
+
                             @foreach($cats as $key=>$cat)
                                 <tr class="whitespace-nowrap">
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         {{$cats->firstItem() + $key  }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <button wire:click="showImage({{$cat->id}})" class="hover:text-gray-700">{{$cat->name}}</button>
+                                        <button wire:click="detailCategory({{$cat->id}})"
+                                                class="hover:text-gray-700">{{$cat->name}}</button>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         <img src="{{ asset('storage/'.$cat->thumb_name) }}" alt=""
                                              class="w-32 mx-auto">
                                     </td>
-                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
 
+                                    <td class="px-6 py-4 text-center text-sm text-gray-500">
+                                        {{count($cat->item)}}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         <p>{{$cat->description}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click=""
+                                        <button wire:click="edit({{$cat->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-blue-400 rounded">Edit
                                         </button>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click=""
+                                        <button wire:click="delete({{$cat->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-red-400 rounded">Delete
                                         </button>
                                     </td>

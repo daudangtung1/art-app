@@ -78,11 +78,6 @@ class AdminGallery extends Component
     {
         $edit = Image::findOrFail($id);
         $this->image = $edit->image;
-
-//        $this->title = $edit->title;
-//        $this->alt = $edit->alt;
-//        $this->description = $edit->description;
-
         $this->updateMode = true;
         $this->select_id = $id;
     }
@@ -97,12 +92,14 @@ class AdminGallery extends Component
 
         $valImage = $this->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+            'category_id'=>'required',
         ]);
 
         $update = Image::find($this->select_id);
 
         $file = $this->image->store('images', 'public');
         $valImage['name'] = $file;
+        $valImage['category_id'] = $this->category_id;
 
         $update->imageInfo()->update($val);
         $update->update($valImage);
