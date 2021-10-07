@@ -2,45 +2,57 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Livewire\Gallery;
-use App\Models\Image;
-use App\Models\ImageInfo;
+use App\Models\Gallery;
+use App\Models\GalleryInfo;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Exception;
-use Illuminate\Support\Facades\DB;
+use App\Models\Image;
+use App\Models\ImageInfo;
 
 class AdminGallery extends Component
 {
     use WithFileUploads;
-
-    public $name, $alt, $description, $image, $title, $category_id;
+    public $thumb_name, $image, $description, $name, $data;
     public $updateMode = false;
+    public $editMode = false;
     public $createMode = false;
     public $select_id;
-
-    public function render()
-    {
-        $imgs = ImageInfo::with('image')->paginate('12');
-        return view('livewire.admin.gallery.index', compact('imgs'))->layout('layouts.admin');
-    }
+    public $showItem = false;
 
     private function resetInput()
     {
+        $this->thumb_name = null;
         $this->image = null;
         $this->name = null;
-        $this->alt = null;
-        $this->title = null;
         $this->description = null;
-        $this->category_id = null;
     }
 
     public function cancel()
     {
         $this->createMode = false;
-        $this->updateMode = false;
+        $this->showItem = false;
+        $this->editMode = false;
         $this->resetInput();
+    }
+
+    public function showItem()
+    {
+        $this->showItem = true;
+    }
+
+    public function editMode()
+    {
+        $this->editMode = false;
+    }
+
+    public function render()
+    {
+        $galleries = GalleryInfo::with('gallery')->paginate('10');
+        return view('livewire.admin.gallery.index', [
+            'galleries' => $galleries,
+        ])->layout('layouts.admin');
     }
 
     public function create()
@@ -50,78 +62,67 @@ class AdminGallery extends Component
 
     public function store()
     {
-        $validateImg = $this->validate([
+        $validate = $this->validate([
+            'thumb_name' => 'required|max: 128',
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'category_id' => 'required',
         ]);
-        $validateImgInfo = $this->validate([
-            'title' => 'required|max: 128',
-            'alt' => '',
-            'description' => '',
-        ]);
-        $file = $this->image->store('images', 'public');
-        $validateImg['name'] = $file;
-        $validateImg['category_id'] = $this->category_id;
-        $d = Image::create($validateImg);
 
-        $imgInfo = new ImageInfo;
-        $imgInfo->alt = $this->alt;
-        $imgInfo->description = $this->description;
-        $imgInfo->title = $this->title;
-        $imgInfo->image_id = $d->id;
-        $imgInfo->save();
+        $validateInfo = $this->validate([
+            'name' => 'required| max: 128 ',
+            'description' => 'required',
+        ]);
+
+        $file = $this->image->store('images', 'public');
+        $validate['thumb_name'] = $file;
+        $createFirst = Gallery::create($validate);
+
+        $galleryInfo = new GalleryInfo();
+        $galleryInfo->name = $this->name;
+        $galleryInfo->description = $this->description;
+        $galleryInfo->gallery_id = $createFirst->id;
+        $galleryInfo->save();
         $this->createMode = false;
         $this->resetInput();
     }
 
     public function edit($id)
     {
-        $edit = Image::findOrFail($id);
+        $edit = Gallery::findOrFail($id);
+        $this->name = $edit->name;
+        $this->description = $edit->description;
         $this->image = $edit->image;
-        $this->updateMode = true;
         $this->select_id = $id;
+        $this->editMode = true;
     }
 
     public function update()
     {
-        $val = $this->validate([
-            'title' => 'required',
-            'alt' => 'required',
-            'description' => 'required',
-        ]);
-
-        $valImage = $this->validate([
+        $validate=$this->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'category_id'=>'required',
         ]);
 
-        $update = Image::find($this->select_id);
+        $validateInfo = $this->validate([
+            'name' => 'required| max: 128 ',
+            'description' => 'required'
+        ]);
+
+        $updateGallery = Gallery::find($this->select_id);
 
         $file = $this->image->store('images', 'public');
-        $valImage['name'] = $file;
-        $valImage['category_id'] = $this->category_id;
+        $validate['thumb_name'] = $file;
 
-        $update->imageInfo()->update($val);
-        $update->update($valImage);
+        $updateGallery->galleryInfo()->update($validateInfo);
+        $updateGallery->update($validate);
 
-        $this->updateMode = false;
+        $this->editMode = false;
         $this->resetInput();
+
     }
 
     public function delete($id)
     {
-//        DB::beginTransaction();
-//        try {
-//            ImageInfo::where('image_id', '=', $id)->delete();
-//            Image::find($id)->delete();
-//            session()->flash('message', 'Users Deleted Successfully.');
-//        } catch (Exception $e) {
-//            DB::rollBack();
-//            throw new Exception($e->getMessage());
-//        }
-
-        ImageInfo::where('image_id', '=', $id)->delete();
-        Image::find($id)->delete();
+        GalleryInfo::where('gallery_id', '=', $id)->delete();
+        Gallery::find($id)->delete();
         session()->flash('message', 'Users Deleted Successfully.');
     }
 }

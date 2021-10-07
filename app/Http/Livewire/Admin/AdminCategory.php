@@ -22,7 +22,7 @@ class AdminCategory extends Component
 
     public function render()
     {
-        $cats = Category::with('item')->paginate('8');
+        $cats = Category::with('item')->paginate('1');
         return view('livewire.admin.category.index', [
             'cats' => $cats,
         ])->layout('layouts.admin');

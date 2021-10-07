@@ -4,40 +4,29 @@
         <ul class="py-2 block">
             <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=0"
                 x-bind:class="{'bg-green-200': active===0}">
-                <a href="#" class="text-gray-600">
+                <a href="{{route('adminDashboard')}}" class="text-gray-600">
                     <p class="py-4 px-2 transition delay-150 ease-in-out">Dashboard</p>
                 </a>
             </li>
             <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=1"
                 x-bind:class="{'bg-green-200': active===1}">
-                <a href="#" class="bg-green-200">
-                    <p class="py-4 px-2 transition delay-150 ease-in-out">User Profile</p>
+                <a href="{{route('adminGallery')}}" class="bg-green-200">
+                    <p class="py-4 px-2 transition delay-150 ease-in-out">Gallery</p>
                 </a>
             </li>
             <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=2"
                 x-bind:class="{'bg-green-200': active===2}">
-                <a href="#" class="bg-green-200">
-                    <p class="py-4 px-2 transition delay-150 ease-in-out">Table list</p>
+                <a href="{{route('adminImage')}}" class="bg-green-200">
+                    <p class="py-4 px-2 transition delay-150 ease-in-out">Image</p>
                 </a>
             </li>
             <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=3"
                 x-bind:class="{'bg-green-200': active===3}">
-                <a href="#" class="bg-green-200">
-                    <p class="py-4 px-2 transition delay-150 ease-in-out">Typography</p>
+                <a href="{{route('adminCategory')}}" class="bg-green-200">
+                    <p class="py-4 px-2 transition delay-150 ease-in-out">Category</p>
                 </a>
             </li>
-            <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=4"
-                x-bind:class="{'bg-green-200': active===4}">
-                <a href="" class="bg-green-200">
-                    <p class="py-4 px-2 transition delay-150 ease-in-out">Maps</p>
-                </a>
-            </li>
-            <li class="px-3 hover:bg-green-200" x-on:click.prevent="active=5"
-                x-bind:class="{'bg-green-200': active===5}">
-                <a href="" class="bg-green-200  ">
-                    <p class="py-4 px-2 transition delay-150 ease-in-out">Notifications</p>
-                </a>
-            </li>
+
         </ul>
     </div>
 </div>

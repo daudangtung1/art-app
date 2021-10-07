@@ -5,25 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class GalleryInfo extends Model
 {
     use HasFactory;
-
-    protected $fillable=[
+    protected $fillable = [
+        'thumb_name',
         'name',
         'image',
+        'description',
+    ];
+
+    protected $hidden = [
+        'id',
         'gallery_id',
     ];
 
-    protected $hidden=[
-        'id',
-    ];
-
-    public function imageInfo(){
-        return $this->hasOne('App\Models\ImageInfo');
-    }
-
-    public function galleryParent(){
+    public function gallery()
+    {
         return $this->belongsTo('App\Models\Gallery', 'gallery_id');
     }
 }

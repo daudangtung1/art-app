@@ -7,6 +7,7 @@ use App\Http\Livewire\Admin\AdminGallery;
 use App\Http\Livewire\Admin\AdminCategory;
 use App\Http\Livewire\Gender;
 use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Admin\AdminImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,17 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+/*guest view*/
 Route::get('/gallery', Gallery::class);
-Route::get('/gender', Gender::class);
 
-Route::get('/admin/gallery', AdminGallery::class);
-Route::get('/admin/category', AdminCategory::class);
+/*admin dashboard*/
+Route::get('/admin/dashboard', AdminDashboard::class)->name('adminDashboard');
 
-Route::get('/admin/dashboard', AdminDashboard::class);
+/*admin gallery*/
+
+Route::get('/admin/gallery', AdminGallery::class)->name('adminGallery');
+
+Route::get('/admin/image', AdminImage::class)->name('adminImage');
+
+/*admin blog*/
+Route::get('/admin/category', AdminCategory::class)->name('adminCategory');
