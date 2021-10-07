@@ -11,7 +11,7 @@
             <h2 class="text-2xl">Enviroment Artist</h2>
         </div>
         <div class="mb-2">
-            <span class="border-r px-4">59.1K Watcher</span>
+            <span class="border-r pr-4">59.1K Watcher</span>
             <span class="border-r px-4">1.5M Page Views</span>
             <span class="border-r px-4">408 Deviations</span>
             <span class="border-r px-4">5,7K Comments</span>

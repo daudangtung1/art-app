@@ -21,17 +21,25 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body>
-<header>
-    1
-</header>
-<main>
-    <div class="font-sans text-gray-900 antialiased">
-        {{ $slot }}
+<div class="wrapper bg-gray-200 grid xl:grid-cols-8 md:grid-cols-1 gap-0">
+    <div class="bg-white">
+        <livewire:layouts.admin.sidebar/>
     </div>
-</main>
-<footer class="z-10 text-white bg-customBlack-16">
-    2
-</footer>
+
+    <div class="main-panel xl:col-span-7 md:col-span-1 px-4">
+        <header>
+            <livewire:layouts.admin.header/>
+        </header>
+        <main>
+            <div class="font-sans text-gray-900 antialiased">
+                {{ $slot }}
+            </div>
+        </main>
+        <footer class="z-10">
+            <livewire:layouts.admin.footer/>
+        </footer>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('#dataTable').DataTable();
