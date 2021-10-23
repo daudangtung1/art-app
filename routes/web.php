@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Livewire\Gallery;
+use App\Http\Livewire\Admin\AdminGallery;
+use App\Http\Livewire\Admin\AdminCategory;
+use App\Http\Livewire\Gender;
+use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Admin\AdminImage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +27,18 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+/*guest view*/
+Route::get('/gallery', Gallery::class);
+
+/*admin dashboard*/
+Route::get('/admin/dashboard', AdminDashboard::class)->name('adminDashboard');
+
+/*admin gallery*/
+
+Route::get('/admin/gallery', AdminGallery::class)->name('adminGallery');
+
+Route::get('/admin/image', AdminImage::class)->name('adminImage');
+
+/*admin blog*/
+Route::get('/admin/category', AdminCategory::class)->name('adminCategory');

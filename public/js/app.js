@@ -5013,6 +5013,45 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/justifiedGallery.js":
+/*!******************************************!*\
+  !*** ./resources/js/justifiedGallery.js ***!
+  \******************************************/
+/***/ (() => {
+
+$("#my-gallery").justifiedGallery({
+  rowHeight: 280,
+  lastRow: 'nojustify',
+  margins: 10
+});
+
+/***/ }),
+
+/***/ "./resources/js/owl-carousel.js":
+/*!**************************************!*\
+  !*** ./resources/js/owl-carousel.js ***!
+  \**************************************/
+/***/ (() => {
+
+$('.owl-carousel').owlCarousel({
+  loop: false,
+  margin: 10,
+  nav: true,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 3
+    },
+    1000: {
+      items: 6
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -22606,6 +22645,8 @@ process.umask = function() { return 0; };
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/justifiedGallery.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/owl-carousel.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	

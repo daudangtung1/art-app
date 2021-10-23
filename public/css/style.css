@@ -1,0 +1,51 @@
+
+header {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: black;
+    color: white;
+    width: 100%;
+}
+
+.author-info:first-child {
+    padding: 0 20px 0 0;
+}
+
+.author-info:last-child {
+    border-right: none;
+    padding: 0 0 0 20px;
+}
+
+/*gallery*/
+
+.gallery-nav button {
+    border: none;
+    background: none;
+    top: 1px;
+    right: 0;
+    padding: 5px 10px;
+}
+
+.footer-main{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 80px 150px;
+}
+
+.footer-item{
+    text-transform: uppercase;
+    text-align: center;
+}
+.footer-item ul{
+    text-align: left;
+}
+.footer-item ul li{
+    list-style-type: none;
+}
+
+.footer-copyright{
+    color: #b1b1b9;
+}
