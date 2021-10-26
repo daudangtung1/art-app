@@ -1,4 +1,10 @@
-<div class="fixed left-0 right-0 h-full text-white bg-cover bg-center bg-no-repeat top-20 bg-gallery -z-10"></div>
+<div class="fixed top-0 left-0 right-0 background -z-50" style="background-image: url('img/wallpaper1.jpg');
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+"></div>
 <div class="px-20 mt-72 mb-0 text-white flex">
     <div>
         <img src="img/wallpaper2.jpg" alt="" class="w-28 h-28">

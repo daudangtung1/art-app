@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\Gallery;
+use App\Http\Livewire\GalleryIndex;
 use App\Http\Livewire\Admin\AdminGallery;
 use App\Http\Livewire\Admin\AdminCategory;
 use App\Http\Livewire\Gender;
@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 /*guest view*/
-Route::get('/gallery', Gallery::class);
+Route::get('/gallery', GalleryIndex::class);
 
 /*admin dashboard*/
 Route::get('/admin/dashboard', AdminDashboard::class)->name('adminDashboard');

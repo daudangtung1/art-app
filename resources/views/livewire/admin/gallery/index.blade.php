@@ -1,5 +1,10 @@
 <div>
-    <div class="z-0">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Galleries') }}
+        </h2>
+    </x-slot>
+    <div class="z-0 max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if($createMode==true)
             @include('livewire.admin.category.create')
         @endif
@@ -9,8 +14,14 @@
         @if($editMode==true)
             @include('livewire.admin.category.edit')
         @endif
-        <nav class="container mx-auto">
-            <button wire:click="create" class="btn btn-sm btn-outline-danger py-0">Create</button>
+        <nav class="container mx-auto flex justify-between">
+            <button wire:click="create" class="btn btn-sm btn-outline-danger">Create</button>
+            @if(Session::has('message'))
+                <div class="bg-red-200 w-1/5 text-center py-1 px-6 flex justify-between" id="mess">
+                    {{ Session::get('message') }}
+                    <span class="cursor-pointer" onclick="this.parentElement.style.display='none';">&times;</span>
+                </div>
+            @endif
         </nav>
 
         <div class="container mx-auto">

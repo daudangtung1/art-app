@@ -52,7 +52,7 @@ class AdminGallery extends Component
         $galleries = GalleryInfo::with('gallery')->paginate('10');
         return view('livewire.admin.gallery.index', [
             'galleries' => $galleries,
-        ])->layout('layouts.admin');
+        ])->layout('layouts.app');
     }
 
     public function create()
@@ -83,6 +83,7 @@ class AdminGallery extends Component
         $galleryInfo->save();
         $this->createMode = false;
         $this->resetInput();
+        session()->flash('message', 'Create gallery success.');
     }
 
     public function edit($id)

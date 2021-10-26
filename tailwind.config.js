@@ -14,24 +14,15 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
-            backgroundImage: theme => ({
-                'gallery': "url('/img/wallpaper1.jpg')",
-            }),
-            colors: {
-                gray: {
-                    83: '#838592',
-                    b1: '#b1b1b9',
-                },
-
-                customBlack: {
-                    16: '#161a1f',
-                }
-            },
             zIndex: {
                 '-10': '-10',
+                '-20': '-20',
+                '-30': '-30',
+                '-40': '-40',
+                '-50': '-50',
             }
         },
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/custom-forms')],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

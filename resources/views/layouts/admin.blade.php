@@ -13,12 +13,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
     @livewireStyles
     <!-- Scripts -->
-    {{--    <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}" defer></script>--}}
-    {{--    <script src="{{asset('js/lib/owl.carousel.min.js')}}" defer></script>--}}
-    {{--    <script src="{{asset('js/lib/jquery.justifiedGallery.min.js')}}" defer></script>--}}
-    <script src="{{ mix('js/app.js') }}" defer></script>
+
+    {{--    <script src="{{ mix('js/app.js') }}" defer></script>--}}
+
 </head>
 <body>
 <div class="wrapper bg-gray-200 grid xl:grid-cols-8 md:grid-cols-1 gap-0">
@@ -41,9 +41,15 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $('#dataTable').DataTable();
-    });
+    // $(document).ready(function () {
+    //     $('#dataTable').DataTable();
+    // });
+</script>
+<script src="{{asset('js/lib/jquery-3.2.1.min.js')}}"></script>
+<script>
+    setTimeout(() => {
+        $('#mess').fadeOut('fast');
+    }, 3000);
 </script>
 @livewireScripts
 </body>

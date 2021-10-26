@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\ImageInfo;
 use Livewire\Component;
 use App\Models\Image;
+use App\Models\GalleryInfo;
 use Livewire\WithFileUploads;
 
 class AdminImage extends Component
@@ -36,7 +37,8 @@ class AdminImage extends Component
     public function render()
     {
         $images = ImageInfo::with('image')->paginate('12');
-        return view('livewire.admin.image.index', compact('images'))->layout('layouts.admin');
+        $galleries=GalleryInfo::all();
+        return view('livewire.admin.image.index', compact('images', 'galleries'))->layout('layouts.app');
     }
 
     public function create()

@@ -1,5 +1,10 @@
 <div>
-    <div class="z-0">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Images') }}
+        </h2>
+    </x-slot>
+    <div class="z-0 max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if(!$updateMode)
             @include('livewire.admin.image.create')
         @endif

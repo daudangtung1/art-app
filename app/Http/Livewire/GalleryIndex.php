@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Image;
 use Livewire\Component;
 
-class Gallery extends Component
+class GalleryIndex extends Component
 {
     public function render()
     {
