@@ -9,21 +9,24 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'image',
         'gallery_id',
+        'image_info_id',
     ];
 
-    protected $hidden=[
+    protected $hidden = [
         'id',
     ];
 
-    public function imageInfo(){
-        return $this->hasOne('App\Models\ImageInfo');
+    public function imageInfo()
+    {
+        return $this->belongsTo('App\Models\ImageInfo', 'image_info_id');
     }
 
-    public function galleryParent(){
+    public function galleryParent()
+    {
         return $this->belongsTo('App\Models\Gallery', 'gallery_id');
     }
 }

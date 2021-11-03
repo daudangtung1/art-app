@@ -36,7 +36,7 @@
                                     ID
                                 </th>
                                 <th class="p-8 text-xs text-gray-500">
-                                    Category
+                                    Name
                                 </th>
                                 <th class="p-8 text-xs text-gray-500">
                                     Image
@@ -64,18 +64,18 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         <button wire:click="detailCategory({{$cat->id}})"
-                                                class="hover:text-gray-700">{{$cat->name}}</button>
+                                                class="hover:text-gray-700">{{$cat->galleryInfo->name}}</button>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <img src="{{ asset('storage/'.$cat->gallery->thumb_name) }}" alt=""
+                                        <img src="{{ asset('storage/'.$cat->image) }}" alt=""
                                              class="w-32 mx-auto">
                                     </td>
 
                                     <td class="px-6 py-4 text-center text-sm text-gray-500">
-                                        {{count($cat->gallery->galleryItem)}}
+                                        <p>{{count($cat->galleryItem)}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <p>{{$cat->description}}</p>
+                                        <p>{{$cat->galleryInfo->description}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <button wire:click="edit({{$cat->id}})"

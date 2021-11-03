@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Image;
 use App\Models\ImageInfo;
+use App\Models\User;
 
 class AdminGallery extends Component
 {
@@ -47,9 +48,13 @@ class AdminGallery extends Component
         $this->editMode = false;
     }
 
+    protected $rules = [
+        'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+    ];
+
     public function render()
     {
-        $galleries = GalleryInfo::with('gallery')->paginate('10');
+        $galleries = Gallery::with('galleryItem')->paginate('10');
         return view('livewire.admin.gallery.index', [
             'galleries' => $galleries,
         ])->layout('layouts.app');
@@ -62,25 +67,26 @@ class AdminGallery extends Component
 
     public function store()
     {
-        $validate = $this->validate([
-            'thumb_name' => 'required|max: 128',
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-        ]);
+//        $validate = $this->validate([
+//            'thumb_name' => 'required|max: 128',
+//            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+//        ]);
+
+        $this->validate();
 
         $validateInfo = $this->validate([
             'name' => 'required| max: 128 ',
             'description' => 'required',
         ]);
 
-        $file = $this->image->store('images', 'public');
-        $validate['thumb_name'] = $file;
-        $createFirst = Gallery::create($validate);
+        $createInfo = GalleryInfo::create($validateInfo);
 
-        $galleryInfo = new GalleryInfo();
-        $galleryInfo->name = $this->name;
-        $galleryInfo->description = $this->description;
-        $galleryInfo->gallery_id = $createFirst->id;
-        $galleryInfo->save();
+        $createGallery = new Gallery();
+        $createGallery->image = $this->image->store('images', 'public');
+        $createGallery->thumb_name = $this->thumb_name;
+        $createGallery->gallery_info_id = $createInfo->id;
+        $createGallery->save();
+
         $this->createMode = false;
         $this->resetInput();
         session()->flash('message', 'Create gallery success.');
@@ -98,32 +104,27 @@ class AdminGallery extends Component
 
     public function update()
     {
-        $validate=$this->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-        ]);
-
+        $this->validate();
         $validateInfo = $this->validate([
             'name' => 'required| max: 128 ',
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
-        $updateGallery = Gallery::find($this->select_id);
-
-        $file = $this->image->store('images', 'public');
-        $validate['thumb_name'] = $file;
-
-        $updateGallery->galleryInfo()->update($validateInfo);
-        $updateGallery->update($validate);
+        $update = Gallery::find($this->select_id);
+        $update->image = $this->image->store('images', 'public');
+        $update->galleryInfo()->update($validateInfo);
+        $update->save();
 
         $this->editMode = false;
         $this->resetInput();
-
+        session()->flash('message', 'Gallery Updated Successfully.');
     }
 
     public function delete($id)
     {
-        GalleryInfo::where('gallery_id', '=', $id)->delete();
-        Gallery::find($id)->delete();
-        session()->flash('message', 'Users Deleted Successfully.');
+        $d1 = Gallery::find($id);
+        GalleryInfo::with('gallery')->where('gallery_infos.id', '=', $d1->gallery_info_id)->delete();
+        $d1->delete();
+        session()->flash('message', 'Gallery Deleted Successfully.');
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Gallery;
 use App\Models\ImageInfo;
 use Livewire\Component;
 use App\Models\Image;
 use App\Models\GalleryInfo;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class AdminImage extends Component
 {
@@ -15,6 +17,7 @@ class AdminImage extends Component
     public $name, $alt, $description, $image, $title, $gallery_id;
     public $updateMode = false;
     public $createMode = false;
+
     public $select_id;
 
     private function resetInput()
@@ -34,10 +37,15 @@ class AdminImage extends Component
         $this->resetInput();
     }
 
+    protected $rules = [
+        'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+        'gallery_id' => 'required',
+    ];
+
     public function render()
     {
-        $images = ImageInfo::with('image')->paginate('12');
-        $galleries=GalleryInfo::all();
+        $images = Image::with('imageInfo')->paginate('12');
+        $galleries = Gallery::all();
         return view('livewire.admin.image.index', compact('images', 'galleries'))->layout('layouts.app');
     }
 
@@ -48,28 +56,25 @@ class AdminImage extends Component
 
     public function store()
     {
-        $validateImg = $this->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'gallery_id' => 'required',
-        ]);
+        $this->validate();
+
         $validateImgInfo = $this->validate([
             'title' => 'required|max: 128',
-            'alt' => '',
-            'description' => '',
+            'alt' => 'required|max: 128',
+            'description' => 'required|max: 128',
         ]);
-        $file = $this->image->store('images', 'public');
-        $validateImg['name'] = $file;
-        $validateImg['gallery_id'] = $this->gallery_id;
-        $d = Image::create($validateImg);
 
-        $imgInfo = new ImageInfo;
-        $imgInfo->alt = $this->alt;
-        $imgInfo->description = $this->description;
-        $imgInfo->title = $this->title;
-        $imgInfo->image_id = $d->id;
-        $imgInfo->save();
+        $createInfo = ImageInfo::create($validateImgInfo);
+
+        $createImage = new Image;
+        $createImage->image = $this->image->store('images', 'public');
+        $createImage->name = $this->name;
+        $createImage->image_info_id = $createInfo->id;
+        $createImage->gallery_id = $this->gallery_id;
+        $createImage->save();
         $this->createMode = false;
         $this->resetInput();
+        session()->flash('message', 'Image gallery success.');
     }
 
     public function edit($id)
@@ -82,28 +87,33 @@ class AdminImage extends Component
 
     public function update()
     {
-        $val = $this->validate([
+        $this->validate();
+//        $valImage = $this->validate([
+//            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
+//            'gallery_id' => 'required',
+//        ]);
+        $validateInfo = $this->validate([
             'title' => 'required',
             'alt' => 'required',
             'description' => 'required',
         ]);
 
-        $valImage = $this->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-            'gallery_id' => 'required',
-        ]);
-
         $update = Image::find($this->select_id);
 
-        $file = $this->image->store('images', 'public');
-        $valImage['name'] = $file;
-        $valImage['gallery_id'] = $this->gallery_id;
+//        $valImage['name'] = $this->image->store('images', 'public');
+//        $valImage['gallery_id'] = $this->gallery_id;
 
-        $update->imageInfo()->update($val);
-        $update->update($valImage);
+//        $update->imageInfo()->update($validateInfo);
+//        $update->update($valImage);
+
+        $update->image = $this->image->store('images', 'public');
+        $update->gallery_id = $this->gallery_id;
+        $update->imageInfo()->update($validateInfo);
+        $update->save();
 
         $this->updateMode = false;
         $this->resetInput();
+        session()->flash('message', 'Image Updated Successfully.');
     }
 
     public function delete($id)
@@ -119,9 +129,10 @@ class AdminImage extends Component
 //            throw new Exception($e->getMessage());
 //        }
 
-        ImageInfo::where('image_id', '=', $id)->delete();
-        Image::find($id)->delete();
-        session()->flash('message', 'Users Deleted Successfully.');
+        $d1 = Image::findOrFail($id);
+        DB::table('image_infos')->where('image_infos.id', '=', $d1->image_info_id)->delete();
+        $d1->delete();
+        session()->flash('message', 'Image Deleted Successfully.');
     }
 
 }

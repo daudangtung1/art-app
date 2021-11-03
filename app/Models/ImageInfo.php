@@ -16,10 +16,10 @@ class ImageInfo extends Model
     ];
     protected $hidden = [
         'id',
-        'image_id'
+//        'image_id',
     ];
 
     public function image(){
-        return $this->belongsTo('App\Models\Image', 'image_id');
+        return $this->hasOne('App\Models\Image', 'image_id');
     }
 }

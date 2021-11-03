@@ -19,7 +19,10 @@
 
             <label class="block">
                 <span class="text-gray-700">Category</span>
-                <input class="form-input mt-1 block w-full" type="text" wire:model="gallery_id" placeholder="Category">
+                <select wire:model="gallery_id">
+                    @foreach($galleries as $gallery)
+                        <option value="{{$gallery->id}}">{{$gallery->galleryInfo->name}}</option>
+                @endforeach
             </label>
             @error('gallery_id')
             <span class="error">{{ $message }}</span>

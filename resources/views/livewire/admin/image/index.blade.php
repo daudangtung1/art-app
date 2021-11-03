@@ -11,9 +11,15 @@
         @if($updateMode)
             @include('livewire.admin.image.edit')
         @endif
-        <nav class="container mx-auto">
-            <button wire:click="create" class="btn btn-sm btn-outline-danger py-0">Create</button>
-        </nav>
+            <nav class="container mx-auto flex justify-between">
+                <button wire:click="create" class="btn btn-sm btn-outline-danger">Create</button>
+                @if(Session::has('message'))
+                    <div class="bg-red-200 w-1/5 text-center py-1 px-6 flex justify-between" id="mess">
+                        {{ Session::get('message') }}
+                        <span class="cursor-pointer" onclick="this.parentElement.style.display='none';">&times;</span>
+                    </div>
+                @endif
+            </nav>
 
         <div class="container mx-auto">
             <div class="flex flex-col">
@@ -57,30 +63,30 @@
                                         {{$images->firstItem() + $key  }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <img src="{{ asset('storage/'.$img->image->name) }}" alt=""
+                                        <img src="{{ asset('storage/'.$img->image) }}" alt=""
                                              class="w-32 mx-auto">
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        {{$img->alt}}
+                                        {{$img->imageInfo->alt}}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         <div class="text-sm text-gray-500">
-                                            {{$img->title}}
+                                            {{$img->imageInfo->title}}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <p>{{$img->description}}</p>
+                                        <p>{{$img->imageInfo->description}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <p>{{$img->image->galleryParent->galleryInfo->name}}</p>
+                                        <p>{{$img->galleryParent->galleryInfo->name}}</p>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click="edit({{$img->image->id}})"
+                                        <button wire:click="edit({{$img->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-blue-400 rounded">Edit
                                         </button>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <button wire:click="delete({{$img->image->id}})"
+                                        <button wire:click="delete({{$img->id}})"
                                                 class="px-4 py-1 text-sm text-white bg-red-400 rounded">Delete
                                         </button>
                                     </td>

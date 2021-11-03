@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function galleries()
+    {
+        return $this->belongsToMany('App\Models\Gallery', 'galleries', 'gallery_id');
+    }
 }

@@ -29,16 +29,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 /*guest view*/
-Route::get('/gallery', GalleryIndex::class);
+Route::get('/gallery', GalleryIndex::class)->name('gallery');
 
 /*admin dashboard*/
-Route::get('/admin/dashboard', AdminDashboard::class)->name('adminDashboard');
+Route::get('/admin/dashboard', AdminDashboard::class)->name('adminDashboard')->middleware('login');
 
 /*admin gallery*/
 
-Route::get('/admin/gallery', AdminGallery::class)->name('adminGallery');
+Route::get('/admin/gallery', AdminGallery::class)->name('adminGallery')->middleware('login');
 
-Route::get('/admin/image', AdminImage::class)->name('adminImage');
+Route::get('/admin/image', AdminImage::class)->name('adminImage')->middleware('login');
 
 /*admin blog*/
-Route::get('/admin/category', AdminCategory::class)->name('adminCategory');
+Route::get('/admin/category', AdminCategory::class)->name('adminCategory')->middleware('login');

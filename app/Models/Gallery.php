@@ -9,21 +9,29 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'image',
         'thumb_name',
+        'gallery_info_id',
     ];
 
-    protected $hidden=[
+    protected $hidden = [
         'id',
     ];
 
-    public function galleryInfo(){
-        return $this->hasOne('App\Models\GalleryInfo');
+    public function galleryInfo()
+    {
+        return $this->belongsTo('App\Models\GalleryInfo','gallery_info_id');
     }
 
-    public function galleryItem(){
-        return $this->hasMany('App\Models\Image');
+    public function galleryItem()
+    {
+        return $this->hasMany('App\Models\Image','gallery_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'users', 'gallery_users');
     }
 }

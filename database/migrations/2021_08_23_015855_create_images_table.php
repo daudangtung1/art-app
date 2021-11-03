@@ -18,7 +18,8 @@ class CreateImagesTable extends Migration
             $table->timestamps();
             $table->string('name', 128);
             $table->string('image');
-            $table->integer('gallery_id');
+            $table->unsignedInteger('image_info_id');
+            $table->unsignedInteger('gallery_id');
         });
     }
 

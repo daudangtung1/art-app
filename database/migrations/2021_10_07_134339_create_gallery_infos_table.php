@@ -17,8 +17,8 @@ class CreateGalleryInfosTable extends Migration
             $table->id();
             $table->string('name', 128);
             $table->longText('description');
-            $table->integer('gallery_id');
             $table->timestamps();
+//            $table->unsignedInteger('gallery_id');
         });
     }
 

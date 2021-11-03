@@ -19,7 +19,6 @@ class CreateImageInfosTable extends Migration
             $table->string('title', 128);
             $table->text('alt')->nullable();
             $table->text('description')->nullable();
-            $table->integer('image_id');
         });
     }
 

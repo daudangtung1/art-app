@@ -17,11 +17,10 @@ class GalleryInfo extends Model
 
     protected $hidden = [
         'id',
-        'gallery_id',
     ];
 
     public function gallery()
     {
-        return $this->belongsTo('App\Models\Gallery', 'gallery_id');
+        return $this->hasOne('App\Models\Gallery');
     }
 }

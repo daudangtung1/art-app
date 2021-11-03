@@ -20,9 +20,17 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-<div class="font-sans text-gray-900 antialiased">
-    {{ $slot }}
-</div>
+<header>
+    <livewire:layouts.header></livewire:layouts.header>
+</header>
+<main>
+    <div class="font-sans text-gray-900 antialiased">
+        {{ $slot }}
+    </div>
+</main>
+<footer>
+    <livewire:layouts.footer></livewire:layouts.footer>
+</footer>
 </body>
 <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('js/lib/jquery.justifiedGallery.min.js')}}"></script>
@@ -31,9 +39,9 @@
 <script src="{{asset('js/login-particles.js')}}"></script>
 <script>
     $('#my-gallery').justifiedGallery({
-        rowHeight : 250,
-        lastRow : 'nojustify',
-        margins : 10
+        rowHeight: 250,
+        lastRow: 'nojustify',
+        margins: 10
     });
 </script>
 </html>
