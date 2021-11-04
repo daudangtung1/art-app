@@ -17,9 +17,8 @@ class GalleryIndex extends Component
 
     public function render()
     {
-        return view('livewire.gallery', [
-            'images'=>Image::all(),
-        ])->layout('layouts.guest');
+        $images=Image::all();
+        return view('livewire.gallery', compact('images'))->layout('layouts.guest');
 
 //        $imageData = $this->imageGet->getImageData();
 //        return view('livewire.gallery', compact('imageData'));

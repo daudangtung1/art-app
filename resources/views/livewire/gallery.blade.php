@@ -5,7 +5,7 @@
 	background-position: center;
 	background-size: cover;
 "></div>
-<div class="px-20 mt-72 mb-0 text-white flex">
+<div class="px-20 mt-72 mb-16 mb-0 text-white flex">
     <div>
         <img src="img/wallpaper2.jpg" alt="" class="w-28 h-28">
     </div>
@@ -25,29 +25,30 @@
         </div>
     </div>
 </div>
-<nav class="mt-10 flex justify-between bg-black mx-20">
+<nav class="header-nav bg-black flex justify-between mx-16 z-20">
     <ul>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Home</a></li>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Gallery</a></li>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Favourite</a></li>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Posts</a></li>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">Shop</a></li>
-        <li class="inline-block px-4 py-3"><a href="#" class="hover:text-white px-4 py-3 text-gray-83">About</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Home</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Gallery</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Favourite</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Posts</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Shop</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">About</a></li>
+        <li class="inline-block px-4 py-3"><a href="" class="text-white px-4 py-3">Subscriptions</a></li>
     </ul>
     <div class="sub-nav text-white flex">
-        <div class="mr-3">
-            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
-            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
-            <button type="button" class="px-3 py-3 text-xl"><i class="fa fa-gift" aria-hidden="true"></i></button>
+        <div class="mr-3 flex">
+            <button type="button" class="px-3 py-3 text-xl block"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+            <button type="button" class="px-3 py-3 text-xl 2xl:block xl:hidden lg:hidden md:hidden"><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+            <button type="button" class="px-3 py-3 text-xl 2xl:block xl:hidden lg:hidden md:hidden"><i class="fa fa-gift" aria-hidden="true"></i></button>
         </div>
-        <button class="px-10 py-3 bg-white hover:text-green-400 text-black">Chat</button>
-        <button class="px-10 py-3 bg-green-400 text-black">+ Watch</button>
+        <button type="button" class="px-6 py-3 bg-white text-black 2xl:block xl:hidden lg:hidden md:hidden">Chat</button>
+        <div class="px-6 py-3 bg-green-400"><a href="" class="text-black">+ Watch</a></div>
     </div>
 </nav>
-<div class="pb-90 text-white bg-black">
+<div class="pb-90 text-white bg-black mt-6">
     <div class="main-background">
         <div class="px-20 mb-10">
-            <div class="gallery-nav pt-4 pb-3 flex justify-between">
+            <div class="gallery-nav pt-4 pb-3 flex justify-between z-10">
                 <h4 class="text-xl font-medium">Gallery</h4>
                 <form class="relative">
                     <div>
@@ -88,7 +89,7 @@
             <div id="my-gallery" style="margin: 0 -0.5rem">
                 @foreach($images as $img)
                     <a href="">
-                        <img alt="{{$img->alt}}" src="{{ asset('storage/'.$img->name) }}"/>
+                        <img alt="{{$img->alt}}" src="{{ asset('storage/'.$img->image) }}"/>
                     </a>
                 @endforeach
             </div>
