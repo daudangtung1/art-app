@@ -58,9 +58,10 @@
                             <tbody class="bg-white">
 
                             @foreach($galleries as $key=>$cat)
+
                                 <tr class="whitespace-nowrap">
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        {{$galleries->firstItem() + $key  }}
+{{--                                        {{$galleries->firstItem() + $key  }}--}}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         <button wire:click="detailCategory({{$cat->id}})"
@@ -89,6 +90,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                             </tbody>
                         </table>
                         {{ $galleries->links() }}

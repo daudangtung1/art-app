@@ -44,8 +44,15 @@ class AdminImage extends Component
 
     public function render()
     {
+        $getUser = auth()->user();
         $images = Image::with('imageInfo')->paginate('12');
-        $galleries = Gallery::all();
+//        $galleries = Gallery::with('galleryItem')->where('user_id', '=', $getUser);
+        $galleries = DB::table('galleries')
+            ->join('gallery_infos', 'gallery_infos.id', '=', 'galleries.gallery_info_id')
+            ->join('users', 'users.id', '=', 'galleries.user_id')
+            ->where('galleries.user_id', '=', $getUser->id)
+            ->select('galleries.id', 'gallery_infos.name')
+            ->get();
         return view('livewire.admin.image.index', compact('images', 'galleries'))->layout('layouts.app');
     }
 

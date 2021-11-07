@@ -32,7 +32,7 @@
 
                     <select wire:model="gallery_id">
                         @foreach($galleries as $gallery)
-                            <option value="{{$gallery->id}}">{{$gallery->galleryInfo->name}}</option>
+                            <option value="{{$gallery->id}}">{{$gallery->name}}</option>
                         @endforeach
                     </select>
                 </label>

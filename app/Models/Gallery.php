@@ -14,6 +14,7 @@ class Gallery extends Model
         'image',
         'thumb_name',
         'gallery_info_id',
+        'user_id',
     ];
 
     protected $hidden = [
@@ -32,6 +33,6 @@ class Gallery extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User', 'users', 'gallery_users');
+        return $this->belongsToMany('App\Models\User', 'user_id');
     }
 }

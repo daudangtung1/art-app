@@ -18,6 +18,7 @@ class CreateGalleriesTable extends Migration
             $table->string('thumb_name', 128);
             $table->string('image');
             $table->unsignedInteger('gallery_info_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }

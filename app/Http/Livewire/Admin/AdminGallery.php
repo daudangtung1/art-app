@@ -16,6 +16,7 @@ class AdminGallery extends Component
 {
     use WithFileUploads;
     public $thumb_name, $image, $description, $name, $data;
+    public $user_id;
     public $updateMode = false;
     public $editMode = false;
     public $createMode = false;
@@ -52,9 +53,17 @@ class AdminGallery extends Component
         'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
     ];
 
-    public function render()
+    public function render(User $user_id)
     {
-        $galleries = Gallery::with('galleryItem')->paginate('10');
+        $getUser = auth()->user();
+        $galleries = Gallery::with('galleryItem')->where('user_id', '=', $getUser->id)->paginate(1);
+//        $galleries = DB::table('galleries')
+//            ->join('users', 'users.id', '=', 'galleries.user_id')
+//            ->join('gallery_infos', 'gallery_infos.id', '=', 'galleries.gallery_info_id')
+//            ->select('galleries.*', 'gallery_infos.*', 'users.id')
+//            ->where('galleries.user_id', '=', $getUser->id)
+//            ->paginate(2);
+
         return view('livewire.admin.gallery.index', [
             'galleries' => $galleries,
         ])->layout('layouts.app');
@@ -71,7 +80,8 @@ class AdminGallery extends Component
 //            'thumb_name' => 'required|max: 128',
 //            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
 //        ]);
-
+        $getUser = auth()->user();
+//        dd($getUser->id);
         $this->validate();
 
         $validateInfo = $this->validate([
@@ -85,6 +95,7 @@ class AdminGallery extends Component
         $createGallery->image = $this->image->store('images', 'public');
         $createGallery->thumb_name = $this->thumb_name;
         $createGallery->gallery_info_id = $createInfo->id;
+        $createGallery->user_id = $getUser->id;
         $createGallery->save();
 
         $this->createMode = false;

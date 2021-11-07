@@ -61,6 +61,6 @@ class User extends Authenticatable
 
     public function galleries()
     {
-        return $this->belongsToMany('App\Models\Gallery', 'galleries', 'gallery_id');
+        return $this->hasMany('App\Models\Gallery', 'user_id');
     }
 }
