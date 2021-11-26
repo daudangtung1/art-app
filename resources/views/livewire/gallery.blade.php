@@ -41,8 +41,8 @@
             <button type="button" class="px-3 py-3 text-xl 2xl:block xl:hidden lg:hidden md:hidden"><i class="fa fa-share-square-o" aria-hidden="true"></i></button>
             <button type="button" class="px-3 py-3 text-xl 2xl:block xl:hidden lg:hidden md:hidden"><i class="fa fa-gift" aria-hidden="true"></i></button>
         </div>
-        <button type="button" class="px-6 py-3 bg-white text-black 2xl:block xl:hidden lg:hidden md:hidden">Chat</button>
-        <div class="px-6 py-3 bg-green-400"><a href="" class="text-black">+ Watch</a></div>
+        <button type="button" class="px-10 py-3 bg-white text-black 2xl:block xl:hidden lg:hidden md:hidden">Chat</button>
+        <div class="px-10 py-3 bg-green-400"><a href="" class="text-black">+ Watch</a></div>
     </div>
 </nav>
 <div class="pb-90 text-white bg-black mt-6">
@@ -50,12 +50,16 @@
         <div class="px-20 mb-10">
             <div class="gallery-nav pt-4 pb-3 flex justify-between z-10">
                 <h4 class="text-xl font-medium">Gallery</h4>
-                <form class="relative">
-                    <div>
-                        <input type="text" placeholder="What are you loocking for?"
-                               class="focus:outline-none text-black px-3 py-1 w-64 border-green-400 border-2">
+                <button class="btn-search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+                <form class="form-search hidden">
+                    <div class="border border-green-400 w-56 pl-2 pr-1 py-1 p bg-black text-sm">
+                        <input type="text" class="focus:outline-none bg-black text-white w-48" placeholder="What are you loocking for?"></input>
+                        <button class="close-search text-white" type="button">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
                     </div>
-                    <button type="button" class="absolute hover:cursor-pointer">x</button>
                 </form>
             </div>
             <div>

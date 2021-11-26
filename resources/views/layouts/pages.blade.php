@@ -23,15 +23,15 @@
 </head>
 <body>
 <header id="header-box" class="fixed top-0 left-0 right-0 bg-black text-white">
-    <livewire:layouts.header></livewire:layouts.header>
+ @include('livewire.layouts.header')
 </header>
 <main>
     <div class="font-sans text-gray-900 antialiased">
-        {{ $slot }}
+        @yield('main-pages')
     </div>
 </main>
 <footer class="bg-gray-800">
-    <livewire:layouts.footer></livewire:layouts.footer>
+    @include('livewire.layouts.footer')
 </footer>
 </body>
 <script src="{{asset('js/lib/jquery-3.2.1.min.js')}}"></script>

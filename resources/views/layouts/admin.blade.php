@@ -23,7 +23,7 @@
 <body>
 <div class="wrapper bg-gray-200 grid xl:grid-cols-8 md:grid-cols-1 gap-0">
     <div class="bg-white">
-        <livewire:layouts.admin.sidebar/>
+{{--        <livewire:layouts.admin.sidebar/>--}}
     </div>
 
     <div class="main-panel xl:col-span-7 md:col-span-1 px-4">

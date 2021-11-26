@@ -35,4 +35,8 @@ class Gallery extends Model
     {
         return $this->belongsToMany('App\Models\User', 'user_id');
     }
+
+    public function slug(){
+        return $this->hasOne('App\Models\Slug');
+    }
 }

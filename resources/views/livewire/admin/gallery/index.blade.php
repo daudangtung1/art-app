@@ -6,13 +6,19 @@
     </x-slot>
     <div class="z-0 max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if($createMode==true)
-            @include('livewire.admin.category.create')
+            @include('livewire.admin.gallery.create')
         @endif
+
         @if($showItem==true)
-            @include('livewire.admin.category.show')
+            @include('livewire.admin.gallery.show')
         @endif
+
         @if($editMode==true)
-            @include('livewire.admin.category.edit')
+            @include('livewire.admin.gallery.edit')
+        @endif
+
+        @if($showMode==true)
+            @include('livewire.admin.gallery.show')
         @endif
         <nav class="container mx-auto flex justify-between">
             <button wire:click="create" class="btn btn-sm btn-outline-danger">Create</button>
@@ -61,7 +67,7 @@
 
                                 <tr class="whitespace-nowrap">
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
-{{--                                        {{$galleries->firstItem() + $key  }}--}}
+                                        {{--                                        {{$galleries->firstItem() + $key  }}--}}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center text-gray-500">
                                         <button wire:click="detailCategory({{$cat->id}})"

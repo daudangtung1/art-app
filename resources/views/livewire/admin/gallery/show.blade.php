@@ -27,17 +27,7 @@
                             </thead>
                             <tbody class="bg-white">
 
-                            @foreach($data as $key => $item)
-                                <tr class="whitespace-nowrap">
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        {{$data->firstItem() + $key  }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-center text-gray-500">
-                                        <img src="{{ asset('storage/'.$item->name) }}" alt=""
-                                             class="w-32 mx-auto">
-                                    </td>
-                                </tr>
-                            @endforeach
+
                             </tbody>
                         </table>
 

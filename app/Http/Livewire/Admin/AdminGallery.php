@@ -4,13 +4,15 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Gallery;
 use App\Models\GalleryInfo;
+use App\Models\Slug;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use App\Models\Image;
 use App\Models\ImageInfo;
-use App\Models\User;
+use function PHPUnit\Framework\isEmpty;
 
 class AdminGallery extends Component
 {
@@ -22,6 +24,8 @@ class AdminGallery extends Component
     public $createMode = false;
     public $select_id;
     public $showItem = false;
+    public $user;
+    public $showMode = false;
 
     private function resetInput()
     {
@@ -49,14 +53,19 @@ class AdminGallery extends Component
         $this->editMode = false;
     }
 
+    public function showMode()
+    {
+        $this->showMode = true;
+    }
+
     protected $rules = [
         'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
     ];
 
-    public function render(User $user_id)
+    public function render()
     {
         $getUser = auth()->user();
-        $galleries = Gallery::with('galleryItem')->where('user_id', '=', $getUser->id)->paginate(1);
+        $galleries = Gallery::with('galleryItem')->where('user_id', '=', $getUser->id)->paginate(10);
 //        $galleries = DB::table('galleries')
 //            ->join('users', 'users.id', '=', 'galleries.user_id')
 //            ->join('gallery_infos', 'gallery_infos.id', '=', 'galleries.gallery_info_id')
@@ -76,12 +85,7 @@ class AdminGallery extends Component
 
     public function store()
     {
-//        $validate = $this->validate([
-//            'thumb_name' => 'required|max: 128',
-//            'image' => 'required|image|mimes:jpg,jpeg,png,svg,gif',
-//        ]);
         $getUser = auth()->user();
-//        dd($getUser->id);
         $this->validate();
 
         $validateInfo = $this->validate([

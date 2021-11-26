@@ -23,6 +23,10 @@
                     <x-jet-nav-link href="{{ route('adminImage') }}" :active="request()->routeIs('adminImage')">
                         {{ __('Images') }}
                     </x-jet-nav-link>
+
+                    <x-jet-nav-link href="{{ route('adminPost') }}" :active="request()->routeIs('adminPost')">
+                        {{ __('Posts') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

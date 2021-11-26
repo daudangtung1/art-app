@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Gallery;
 use App\Models\ImageInfo;
+use App\Models\Slug;
 use Livewire\Component;
 use App\Models\Image;
-use App\Models\GalleryInfo;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +13,7 @@ class AdminImage extends Component
 {
     use WithFileUploads;
 
-    public $name, $alt, $description, $image, $title, $gallery_id;
+    public $name, $alt, $description, $image, $title, $gallery_id, $slug, $image_id;
     public $updateMode = false;
     public $createMode = false;
 
@@ -79,6 +78,15 @@ class AdminImage extends Component
         $createImage->image_info_id = $createInfo->id;
         $createImage->gallery_id = $this->gallery_id;
         $createImage->save();
+
+        $createSlug = new Slug;
+        $createSlug->slug = $this->slug;
+        $createSlug->image_id = $createImage->id;
+        $createSlug->gallery_id = null;
+        $createSlug->post_id = null;
+        $createSlug->category_id = null;
+        $createSlug->save();
+
         $this->createMode = false;
         $this->resetInput();
         session()->flash('message', 'Image gallery success.');

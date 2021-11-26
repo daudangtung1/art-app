@@ -21,7 +21,7 @@
                 <span class="text-gray-700">Category</span>
                 <select wire:model="gallery_id">
                     @foreach($galleries as $gallery)
-                        <option value="{{$gallery->id}}">{{$gallery->galleryInfo->name}}</option>
+                        <option value="{{$gallery->id}}">{{$gallery->name}}</option>
                 @endforeach
             </label>
             @error('gallery_id')

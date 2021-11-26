@@ -47,7 +47,10 @@
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </a>
                 </div>
-                @if(auth()->check())
+                @if(Route::has('login'))
+                    <a href="{{ route('login') }}" class="mx-4 text-sm text-gray-300 flex items-center hover:text-green-400">Log in</a>
+                    <a href="{{ route('register') }}" class="mx-4 text-sm text-gray-300 flex items-center hover:text-green-400">Register</a>
+                @else
                     <div class="flex items-center mx-4">
                         <a href="">
                             <i class="fa fa-commenting-o" aria-hidden="true"></i>
@@ -59,6 +62,7 @@
                         </a>
                     </div>
                 @endif
+
             </div>
             <div class="flex items-center mx-4">
                 <a href="">
